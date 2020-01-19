@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SmartGrocery</string>
+    <string name="lable_login_name">Name</string>
+    <string name="password_hint">Password</string>
+    <string name="name_hint">Name</string>
+    <string name="lable_login_password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
