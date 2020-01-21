@@ -7,10 +7,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.smartgrocery.grocery_list_recyclerview.ItemFragment
+import com.example.smartgrocery.dummy.DummyContent
 import com.google.android.material.navigation.NavigationView
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    ItemFragment.OnListFragmentInteractionListener {
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -64,7 +67,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_lists -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ListsFragment())
+                    .replace(R.id.fragment_container, ItemFragment())
                     .commit()
             }
             R.id.nav_contacts -> {
@@ -89,7 +92,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
 }
