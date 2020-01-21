@@ -10,9 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.smartgrocery.R
+import com.example.smartgrocery.adapter.MyItemRecyclerViewAdapter
 
-import com.example.smartgrocery.dummy.DummyContent
-import com.example.smartgrocery.dummy.DummyContent.DummyItem
+import com.example.smartgrocery.repositories.DummyContent
+import com.example.smartgrocery.repositories.DummyContent.DummyItem
 
 /**
  * A fragment representing a list of Items.
@@ -47,7 +48,11 @@ class ItemFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapterTest(DummyContent.ITEMS, listener)
+                adapter =
+                    MyItemRecyclerViewAdapter(
+                        DummyContent.ITEMS,
+                        listener
+                    )
             }
         }
         return view

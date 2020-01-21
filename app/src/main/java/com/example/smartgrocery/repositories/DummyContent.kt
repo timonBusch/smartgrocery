@@ -1,4 +1,4 @@
-package com.example.smartgrocery.dummy
+package com.example.smartgrocery.repositories
 
 import java.util.ArrayList
 import java.util.HashMap

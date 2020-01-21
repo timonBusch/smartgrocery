@@ -3,12 +3,13 @@ package com.example.smartgrocery
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.smartgrocery.grocery_list_recyclerview.ItemFragment
-import com.example.smartgrocery.dummy.DummyContent
+import com.example.smartgrocery.repositories.DummyContent
 import com.google.android.material.navigation.NavigationView
 
 
@@ -93,7 +94,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val text = "Hello toast!"
+        val duration = Toast.LENGTH_SHORT
+
+        val toast = Toast.makeText(applicationContext, text, duration)
+        toast.show()
+
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.smartgrocery.grocery_list_recyclerview
+package com.example.smartgrocery.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.example.smartgrocery.R
 
 
 import com.example.smartgrocery.grocery_list_recyclerview.ItemFragment.OnListFragmentInteractionListener
-import com.example.smartgrocery.dummy.DummyContent.DummyItem
+import com.example.smartgrocery.repositories.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.layout_list_item.view.*
 
@@ -18,10 +18,10 @@ import kotlinx.android.synthetic.main.layout_list_item.view.*
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyItemRecyclerViewAdapterTest(
+class MyItemRecyclerViewAdapter(
     private val mValues: List<DummyItem>,
     private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyItemRecyclerViewAdapterTest.ViewHolder>() {
+) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
 
