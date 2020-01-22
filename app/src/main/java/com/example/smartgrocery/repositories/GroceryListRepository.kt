@@ -10,14 +10,15 @@ object GroceryListItems{
     val ITEMS: MutableList<GroceryListDataItem> = ArrayList()
 
     /**
-     * Fetch JSON from REST API and create object from it
+     * Fetch List information of user from REST API and create object from it
      *
      */
-    fun fetchJson() {           // Parameter User name und password
+    fun fetchGroceryListData(userName: String, password: String) {           // Parameter User name und password
         println("Attempting to Fetch JSON")
 
         // Rest API URL
         // Make String in dependence of user name and password
+        //val url = "https://192.168.178.20:8080/user$userName/password/$password/lists"     oder so
         val url = "https://jsonplaceholder.typicode.com/todos/1"
 
         val request = Request.Builder().url(url).build()
@@ -55,7 +56,7 @@ object GroceryListItems{
         addListItem(GroceryListDataItem(id_benutzer, name_benutzer, passwort, email))
     }
 
-    fun addListItem(listItem: GroceryListDataItem) {
+    private fun addListItem(listItem: GroceryListDataItem) {
         ITEMS.add(listItem)
     }
 

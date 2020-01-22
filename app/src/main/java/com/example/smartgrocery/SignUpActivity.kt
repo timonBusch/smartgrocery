@@ -3,9 +3,11 @@ package com.example.smartgrocery
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Toast
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -28,11 +30,9 @@ class SignUpActivity : AppCompatActivity() {
         signupUserNameText = findViewById(R.id.signup_name_input)
 
         register_Button!!.setOnClickListener{
+            progressBar!!.visibility = View.VISIBLE
             signUp()
 
-            val intent = Intent(applicationContext, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
         }
 
     }
@@ -51,26 +51,70 @@ class SignUpActivity : AppCompatActivity() {
         val password = signupPasswordText!!.text.toString()
         val rePassword = signupRePasswordText!!.text.toString()
 
-        val corretlySingedUp: Boolean = false
+        val corretlySingedUp = validate()
 
-        // TODO: SignUp logic
+        // TODO: SignUp logic (send information to server)
+
 
         android.os.Handler().postDelayed(
             {
                 if(corretlySingedUp) {
-
+                    onSignUpSuccess()
+                } else {
+                    onSignUpFailed()
                 }
             }, 3000
         )
 
     }
 
-    private fun validate(): Boolean {
+    private fun onSignUpSuccess() {
+        progressBar!!.visibility = View.GONE
+        register_Button!!.isEnabled = true
 
-        return false
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     private fun onSignUpFailed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar!!.visibility = View.GONE
+        Toast.makeText(baseContext, "Signup failed", Toast.LENGTH_LONG).show()
     }
+
+    private fun validate(): Boolean {
+
+        var valid = true
+
+        val userName = signupUserNameText!!.text.toString()
+        val password = signupPasswordText!!.text.toString()
+        val rePassword = signupRePasswordText!!.text.toString()
+
+        // Check if the user name has the right form
+        if (userName.isEmpty() || userName.length < 3) {
+            signupUserNameText!!.error = "at least 3 characters"
+            valid = false
+        } else {
+            signupUserNameText!!.error = null
+        }
+
+        // Check if the password has the right form
+        if (password.isEmpty() || password.length < 4 || password.length > 10) {
+            signupPasswordText!!.error = "between 4 and 10 alphanumeric characters"
+            valid = false
+        } else {
+            signupPasswordText!!.error = null
+        }
+
+        // Check if the retype password matches with the password
+        if (rePassword.isEmpty() || rePassword.length < 4
+            || rePassword.length > 10 || rePassword != password) {
+            signupRePasswordText!!.error = "Passwords do not match"
+            valid = false
+        } else {
+            signupRePasswordText!!.error = null
+        }
+
+        return valid
+    }
+
 }
