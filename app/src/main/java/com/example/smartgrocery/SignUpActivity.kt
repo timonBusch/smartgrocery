@@ -35,9 +35,6 @@ class SignUpActivity : AppCompatActivity() {
             finish()
         }
 
-
-
-
     }
 
     fun signUp() {
@@ -63,13 +60,14 @@ class SignUpActivity : AppCompatActivity() {
                 if(corretlySingedUp) {
 
                 }
-            }
+            }, 3000
         )
 
     }
 
     private fun validate(): Boolean {
 
+        return false
     }
 
     private fun onSignUpFailed() {
