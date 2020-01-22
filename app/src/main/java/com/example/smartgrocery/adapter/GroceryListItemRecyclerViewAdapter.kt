@@ -8,18 +8,17 @@ import android.widget.TextView
 import com.example.smartgrocery.R
 
 
-import com.example.smartgrocery.grocery_list_recyclerview.ListsFragment.OnListFragmentInteractionListener
-import com.example.smartgrocery.repositories.DummyContent.DummyItem
+import com.example.smartgrocery.grocery_lists.ListsFragment.OnListFragmentInteractionListener
+import com.example.smartgrocery.repositories.GroceryListItems
 
 import kotlinx.android.synthetic.main.layout_list_item.view.*
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a List Items and makes a call to the
  * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
  */
 class GroceryListItemRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,       // List<GroceryListData>
+    private val mValues: List<GroceryListItems.GroceryListDataItem>,       // List<GroceryListData>
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<GroceryListItemRecyclerViewAdapter.ViewHolder>() {
 
@@ -27,7 +26,7 @@ class GroceryListItemRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem       // GroceryListData
+            val item = v.tag as GroceryListItems.GroceryListDataItem
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -40,10 +39,11 @@ class GroceryListItemRecyclerViewAdapter(
         return ViewHolder(view)
     }
 
+    // TODO: Ausgabe auf die Textviews anpassen
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
+        holder.mContentView.text = item.name
 
         with(holder.mView) {
             tag = item

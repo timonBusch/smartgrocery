@@ -1,4 +1,4 @@
-package com.example.smartgrocery.grocery_list_recyclerview
+package com.example.smartgrocery.grocery_lists
 
 import android.content.Context
 import android.os.Bundle
@@ -12,8 +12,7 @@ import android.view.ViewGroup
 import com.example.smartgrocery.R
 import com.example.smartgrocery.adapter.GroceryListItemRecyclerViewAdapter
 
-import com.example.smartgrocery.repositories.DummyContent
-import com.example.smartgrocery.repositories.DummyContent.DummyItem
+import com.example.smartgrocery.repositories.GroceryListItems
 
 /**
  * A fragment representing a list of Items.
@@ -40,7 +39,7 @@ class ListsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-
+        GroceryListItems.fetchGroceryListData("Test", "1234")
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -50,7 +49,7 @@ class ListsFragment : Fragment() {
                 }
                 adapter =
                     GroceryListItemRecyclerViewAdapter(
-                        DummyContent.ITEMS,     //GroceryListeItems.ITEMS
+                        GroceryListItems.ITEMS,     //GroceryListeItems.ITEMS
                         listener
                     )
             }
@@ -86,7 +85,7 @@ class ListsFragment : Fragment() {
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         // GroceryListItems ?
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(item: GroceryListItems.GroceryListDataItem?)
     }
 
     companion object {

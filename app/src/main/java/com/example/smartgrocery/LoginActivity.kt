@@ -71,18 +71,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-
-    @SuppressLint("MissingSuperCall")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == Activity.RESULT_OK) {
-
-                // TODO: Registrieren
-
-            }
-        }
-    }
-
     override fun onBackPressed() {
         moveTaskToBack(true)
     }
@@ -106,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
         var valid = true
 
         var userName = userNameText!!.text.toString()
-        var password = passwordText!!.text.toString()
+        val password = passwordText!!.text.toString()
 
         if (password.isEmpty() || password.length < 4 || password.length > 10) {
             passwordText!!.error = "between 4 and 10 alphanumeric characters"
@@ -116,12 +104,5 @@ class LoginActivity : AppCompatActivity() {
         }
         return valid
     }
-
-
-    companion object {
-        private val TAG = "LoginActivity"
-        private val REQUEST_SIGNUP = 0
-    }
-
 
 }

@@ -2,6 +2,7 @@ package com.example.smartgrocery.repositories
 
 import com.google.gson.GsonBuilder
 import okhttp3.*
+import java.io.File
 import java.io.IOException
 import java.util.ArrayList
 
@@ -21,9 +22,13 @@ object GroceryListItems{
         //val url = "https://192.168.178.20:8080/user$userName/password/$password/lists"     oder so
         val url = "https://jsonplaceholder.typicode.com/todos/1"
 
+        val jsonString = """[{"id": 1,"name": "Einkauf"},{"id": 2,"name": "Einkauf2"},{"id": 3,"name": "Einkauf3"}]"""
+
+
         val request = Request.Builder().url(url).build()
 
         val  client = OkHttpClient()
+        var groceryData: List<GroceryListDataItem>? = null
         // Make request on REST API
         client.newCall(request).enqueue(object: Callback {
             override fun onResponse(call: Call, response: Response) {
@@ -32,17 +37,9 @@ object GroceryListItems{
                 val gson = GsonBuilder().create()
 
                 // Creates objects out of the body string
-
-                val groceryData = gson.fromJson(body, Array<GroceryListDataItem>::class.java).toList()
-
-                for (item in groceryData){
-                    makeList(
-                        item.id_benutzer,
-                        item.name_benutzer,
-                        item.passwort,
-                        item.email)
-                }
-
+                // TODO: jsonString mit body ersetzen
+                groceryData = gson.fromJson(jsonString, Array<GroceryListDataItem>::class.java).toList()
+                makeList(groceryData)
 
             }
 
@@ -50,18 +47,18 @@ object GroceryListItems{
                 println("Failed to execute request")
             }
         })
+
     }
 
-    fun makeList(id_benutzer: Int, name_benutzer: String, passwort: String, email: String) {
-        addListItem(GroceryListDataItem(id_benutzer, name_benutzer, passwort, email))
+    fun makeList(groceryData: List<GroceryListDataItem>?) {
+
+        for (item in groceryData!!) {
+            ITEMS.add(item)
+        }
+
     }
 
-    private fun addListItem(listItem: GroceryListDataItem) {
-        ITEMS.add(listItem)
-    }
-
-    data class GroceryListDataItem(val id_benutzer : Int,
-                                   val name_benutzer: String, val passwort: String, val email: String)
+    data class GroceryListDataItem(val id : String, val name: String)
 
 }
 

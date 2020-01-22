@@ -8,8 +8,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.smartgrocery.grocery_list_recyclerview.ListsFragment
-import com.example.smartgrocery.repositories.DummyContent
+import com.example.smartgrocery.grocery_lists.ListsFragment
+import com.example.smartgrocery.repositories.GroceryListItems
 import com.google.android.material.navigation.NavigationView
 
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
 
 
-        val  toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
+        val  toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+    override fun onListFragmentInteraction(item: GroceryListItems.GroceryListDataItem?) {
 
         val text = "Hello toast!"
         val duration = Toast.LENGTH_SHORT
