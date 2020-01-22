@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.example.smartgrocery.R
 
 
-import com.example.smartgrocery.grocery_list_recyclerview.ItemFragment.OnListFragmentInteractionListener
+import com.example.smartgrocery.grocery_list_recyclerview.ListsFragment.OnListFragmentInteractionListener
 import com.example.smartgrocery.repositories.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.layout_list_item.view.*
@@ -18,16 +18,16 @@ import kotlinx.android.synthetic.main.layout_list_item.view.*
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyItemRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
+class GroceryListItemRecyclerViewAdapter(
+    private val mValues: List<DummyItem>,       // List<GroceryListData>
     private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<GroceryListItemRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as DummyItem
+            val item = v.tag as DummyItem       // GroceryListData
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)

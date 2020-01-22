@@ -7,4 +7,10 @@
     <string name="login_button">Login</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="sign_up_button">Sign up</string>
+    <string name="register">Register</string>
+    <string name="re_type_password">Re-type Password</string>
+    <string name="your_name">Full Name</string>
+    <string name="password">Password</string>
+    <string name="e_mail">Email</string>
 </resources>

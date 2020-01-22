@@ -8,13 +8,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.smartgrocery.grocery_list_recyclerview.ItemFragment
+import com.example.smartgrocery.grocery_list_recyclerview.ListsFragment
 import com.example.smartgrocery.repositories.DummyContent
 import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    ItemFragment.OnListFragmentInteractionListener {
+    ListsFragment.OnListFragmentInteractionListener {
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if(savedInstanceState == null) {
 
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, FavouritesFragment())
+                .replace(R.id.fragment_container, ListsFragment())
                 .commit()
 
-            navigationView.setCheckedItem(R.id.nav_favourites)
+            navigationView.setCheckedItem(R.id.nav_lists)
         }
     }
 
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_lists -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, ItemFragment())
+                    .replace(R.id.fragment_container, ListsFragment())
                     .commit()
             }
             R.id.nav_contacts -> {
@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+
         val text = "Hello toast!"
         val duration = Toast.LENGTH_SHORT
 
@@ -101,6 +102,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toast.show()
 
     }
+
+
 
 
 }

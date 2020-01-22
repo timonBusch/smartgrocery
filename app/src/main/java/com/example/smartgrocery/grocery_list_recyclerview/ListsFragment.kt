@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.smartgrocery.R
-import com.example.smartgrocery.adapter.MyItemRecyclerViewAdapter
+import com.example.smartgrocery.adapter.GroceryListItemRecyclerViewAdapter
 
 import com.example.smartgrocery.repositories.DummyContent
 import com.example.smartgrocery.repositories.DummyContent.DummyItem
@@ -18,11 +18,11 @@ import com.example.smartgrocery.repositories.DummyContent.DummyItem
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
- * [ItemFragment.OnListFragmentInteractionListener] interface.
+ * [ListsFragment.OnListFragmentInteractionListener] interface.
  */
-class ItemFragment : Fragment() {
+class ListsFragment : Fragment() {
 
-    // TODO: Customize parameters
+
     private var columnCount = 1
 
     private var listener: OnListFragmentInteractionListener? = null
@@ -49,8 +49,8 @@ class ItemFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter =
-                    MyItemRecyclerViewAdapter(
-                        DummyContent.ITEMS,
+                    GroceryListItemRecyclerViewAdapter(
+                        DummyContent.ITEMS,     //GroceryListeItems.ITEMS
                         listener
                     )
             }
@@ -85,6 +85,7 @@ class ItemFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
+        // GroceryListItems ?
         fun onListFragmentInteraction(item: DummyItem?)
     }
 
@@ -96,7 +97,7 @@ class ItemFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            ItemFragment().apply {
+            ListsFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
