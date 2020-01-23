@@ -3,7 +3,7 @@ package com.example.smartgrocery.repositories
 import okhttp3.*
 import java.io.IOException
 
-class SignUpRepository {
+object SignUpRepository {
 
     /**
      * Send user data through REST API to the server

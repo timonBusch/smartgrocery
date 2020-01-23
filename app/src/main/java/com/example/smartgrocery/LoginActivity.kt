@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.smartgrocery.repositories.LoginRepository
 
 class LoginActivity : AppCompatActivity() {
 
@@ -52,13 +53,17 @@ class LoginActivity : AppCompatActivity() {
         val userName = userNameText!!.text.toString()
         val password = passwordText!!.text.toString()
 
-        val corretUserName = userName == "Test" && password == "1234"
+        LoginRepository.fetchUserData(userName, password)
 
         // TODO: Authentication logic
 
         android.os.Handler().postDelayed(
             {
-                if(corretUserName) {
+                val serverResponse = LoginRepository.body
+                LoginRepository.body
+                val correctUserData = !(serverResponse.equals("Benutzername oder Password falsch.")) ||
+                         serverResponse.equals(null)
+                if(correctUserData) {
                     progressBar!!.visibility = View.GONE
                     onLoginSuccess()
                 } else{

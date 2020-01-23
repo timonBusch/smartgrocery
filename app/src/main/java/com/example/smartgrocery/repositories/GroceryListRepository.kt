@@ -2,7 +2,6 @@ package com.example.smartgrocery.repositories
 
 import com.google.gson.GsonBuilder
 import okhttp3.*
-import java.io.File
 import java.io.IOException
 import java.util.ArrayList
 
