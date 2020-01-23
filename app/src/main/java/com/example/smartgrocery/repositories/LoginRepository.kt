@@ -6,6 +6,7 @@ import java.io.IOException
 object LoginRepository {
 
     var body: String? = null
+
     /**
      * Fetch User Data from REST API and create object from it
      *
@@ -27,7 +28,6 @@ object LoginRepository {
         client.newCall(request).enqueue(object: Callback {
             override fun onResponse(call: Call, response: Response) {
                 body = response.body()?.string()
-
 
             }
 

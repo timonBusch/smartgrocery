@@ -42,8 +42,8 @@ class GroceryListItemRecyclerViewAdapter(
     // TODO: Ausgabe auf die Textviews anpassen
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.name
+        holder.mIdView.text = item.name_einkaufsliste
+        holder.mContentView.text = item.id_einkaufsliste.toString()
 
         with(holder.mView) {
             tag = item

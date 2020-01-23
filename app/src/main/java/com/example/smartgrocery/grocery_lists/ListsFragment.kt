@@ -13,6 +13,7 @@ import com.example.smartgrocery.R
 import com.example.smartgrocery.adapter.GroceryListItemRecyclerViewAdapter
 
 import com.example.smartgrocery.repositories.GroceryListItems
+import com.example.smartgrocery.repositories.LoginRepository.body
 
 /**
  * A fragment representing a list of Items.
@@ -39,7 +40,7 @@ class ListsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        GroceryListItems.fetchGroceryListData("Test", "1234")
+        GroceryListItems.fetchGroceryListData(body)
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
