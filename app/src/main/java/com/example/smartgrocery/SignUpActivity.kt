@@ -8,6 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.smartgrocery.repositories.SignUpRepository
+import com.example.smartgrocery.repositories.SignUpRepository.body
+import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -16,6 +19,7 @@ class SignUpActivity : AppCompatActivity() {
     var signupUserNameText: EditText? = null
     var signupPasswordText: EditText? = null
     var signupRePasswordText: EditText? = null
+    var signupEmailText: EditText? = null
 
 
 
@@ -28,6 +32,7 @@ class SignUpActivity : AppCompatActivity() {
         signupPasswordText = findViewById(R.id.signup_password)
         signupRePasswordText = findViewById(R.id.signup_repassword)
         signupUserNameText = findViewById(R.id.signup_name_input)
+        signupEmailText = findViewById(R.id.email_input)
 
         register_Button!!.setOnClickListener{
             progressBar!!.visibility = View.VISIBLE
@@ -49,15 +54,18 @@ class SignUpActivity : AppCompatActivity() {
 
         val userName = signupUserNameText!!.text.toString()
         val password = signupPasswordText!!.text.toString()
-        val rePassword = signupRePasswordText!!.text.toString()
+        val email = signupEmailText!!.text.toString()
 
         val corretlySingedUp = validate()
 
         // TODO: SignUp logic (send information to server)
-
+        SignUpRepository.sendUserData(userName, password, email)
 
         android.os.Handler().postDelayed(
             {
+                val serverResponse = body
+                val corretlySingedUp = serverResponse.equals("saved")
+
                 if(corretlySingedUp) {
                     onSignUpSuccess()
                 } else {
@@ -71,6 +79,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun onSignUpSuccess() {
         progressBar!!.visibility = View.GONE
         register_Button!!.isEnabled = true
+        Toast.makeText(baseContext, "Registration successfull",
+            Toast.LENGTH_LONG).show()
 
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
@@ -88,6 +98,7 @@ class SignUpActivity : AppCompatActivity() {
         val userName = signupUserNameText!!.text.toString()
         val password = signupPasswordText!!.text.toString()
         val rePassword = signupRePasswordText!!.text.toString()
+        val email = signupEmailText!!.text.toString()
 
         // Check if the user name has the right form
         if (userName.isEmpty() || userName.length < 3) {
@@ -96,6 +107,15 @@ class SignUpActivity : AppCompatActivity() {
         } else {
             signupUserNameText!!.error = null
         }
+
+        // Check if email is valid
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            email_input!!.error = "enter a valid email address"
+            valid = false
+        } else {
+            email_input!!.error = null
+        }
+
 
         // Check if the password has the right form
         if (password.isEmpty() || password.length < 4 || password.length > 10) {
