@@ -1,7 +1,5 @@
 package com.example.smartgrocery
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.smartgrocery.repositories.GroceryListItems
 import com.example.smartgrocery.repositories.LoginRepository
 
 class LoginActivity : AppCompatActivity() {
@@ -82,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun onLoginSuccess() {
         loginButton!!.isEnabled = true
-
+        GroceryListItems.fetchGroceryListData(LoginRepository.body)
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
 

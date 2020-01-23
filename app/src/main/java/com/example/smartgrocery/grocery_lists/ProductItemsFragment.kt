@@ -2,36 +2,29 @@ package com.example.smartgrocery.grocery_lists
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.example.smartgrocery.R
-import com.example.smartgrocery.adapter.GroceryListItemRecyclerViewAdapter
-
-import com.example.smartgrocery.repositories.GroceryListItems
+import com.example.smartgrocery.adapter.ProductListItemAdapter
 import com.example.smartgrocery.repositories.LoginRepository.body
+import com.example.smartgrocery.repositories.ProductRepository
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [ListsFragment.OnListFragmentInteractionListener] interface.
- */
-class ListsFragment : Fragment() {
-
+class ProductItemsFragment : Fragment() {
 
     private var columnCount = 1
 
-    private var listener: OnListFragmentInteractionListener? = null
+    private var listener: ProductItemsFragment.OnProductListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
+            columnCount = it.getInt(ListsFragment.ARG_COLUMN_COUNT)
         }
     }
 
@@ -40,7 +33,7 @@ class ListsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-
+        ProductRepository.fetchProductListData(body, 2)
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -49,8 +42,8 @@ class ListsFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter =
-                    GroceryListItemRecyclerViewAdapter(
-                        GroceryListItems.ITEMS,     //GroceryListeItems.ITEMS
+                    ProductListItemAdapter(
+                        ProductRepository.ITEMS,
                         listener
                     )
             }
@@ -60,7 +53,7 @@ class ListsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
+        if (context is ProductItemsFragment.OnProductListFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
@@ -71,6 +64,7 @@ class ListsFragment : Fragment() {
         super.onDetach()
         listener = null
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -83,15 +77,22 @@ class ListsFragment : Fragment() {
      * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
-    interface OnListFragmentInteractionListener {
+    interface OnProductListFragmentInteractionListener {
+        // TODO: Update argument type and name
 
-        fun onListFragmentInteraction(item: GroceryListItems.GroceryListDataItem?)
+        fun onListFragmentInteraction(item: ProductRepository.ProductDataItem?)
     }
 
     companion object {
 
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
 
+        @JvmStatic
+        fun newInstance(columnCount: Int) =
+            ProductItemsFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_COLUMN_COUNT, columnCount)
+                }
+            }
     }
 }
