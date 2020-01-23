@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartgrocery.R
 import com.example.smartgrocery.adapter.ProductListItemAdapter
-import com.example.smartgrocery.repositories.LoginRepository.body
 import com.example.smartgrocery.repositories.ProductRepository
+
 
 class ProductItemsFragment : Fragment() {
 
@@ -33,7 +33,6 @@ class ProductItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        ProductRepository.fetchProductListData(body, 2)
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -78,21 +77,14 @@ class ProductItemsFragment : Fragment() {
      * for more information.
      */
     interface OnProductListFragmentInteractionListener {
-        // TODO: Update argument type and name
 
-        fun onListFragmentInteraction(item: ProductRepository.ProductDataItem?)
+
+        fun onProductListFragmentInteraction(item: ProductRepository.ProductDataItem?)
     }
 
     companion object {
 
         const val ARG_COLUMN_COUNT = "column-count"
 
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            ProductItemsFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 }

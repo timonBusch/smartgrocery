@@ -3,6 +3,8 @@ package com.example.smartgrocery
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -11,15 +13,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.smartgrocery.grocery_lists.ListsFragment
 import com.example.smartgrocery.grocery_lists.ProductItemsFragment
 import com.example.smartgrocery.repositories.GroceryListItems
+import com.example.smartgrocery.repositories.LoginRepository
+import com.example.smartgrocery.repositories.ProductRepository
 import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    ListsFragment.OnListFragmentInteractionListener {
+    ListsFragment.OnListFragmentInteractionListener, ProductItemsFragment.OnProductListFragmentInteractionListener {
 
     private lateinit var drawerLayout: DrawerLayout
-
-    var idEinkaufsListe: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,18 +100,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onListFragmentInteraction(item: GroceryListItems.GroceryListDataItem?) {
-        if (item != null) {
-            idEinkaufsListe = item.id_einkaufsliste
-        }
+        ProductRepository.fetchProductListData(LoginRepository.body, item!!.id_einkaufsliste)
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, ProductItemsFragment())
-            .commit()
+        android.os.Handler().postDelayed(
+            {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, ProductItemsFragment())
+                    .commit()
 
-
+            }, 1000
+        )
 
     }
 
+    override fun onProductListFragmentInteraction(item: ProductRepository.ProductDataItem?) {
+        Toast.makeText(baseContext, "Toast", Toast.LENGTH_LONG).show()
+    }
 
 
 
