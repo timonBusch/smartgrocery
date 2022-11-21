@@ -9,9 +9,6 @@ import com.example.smartgrocery.R
 import com.example.smartgrocery.grocery_lists.ProductItemsFragment
 
 import com.example.smartgrocery.repositories.ProductRepository
-
-
-import kotlinx.android.synthetic.main.layout_list_item.view.*
 import kotlinx.android.synthetic.main.layout_product_list_items.view.*
 
 /**

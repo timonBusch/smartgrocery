@@ -54,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
 
         LoginRepository.fetchUserData(userName, password)
 
-        // TODO: Authentication logic
 
         android.os.Handler().postDelayed(
             {

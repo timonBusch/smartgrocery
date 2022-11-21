@@ -9,11 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import com.example.smartgrocery.R
 import com.example.smartgrocery.adapter.GroceryListItemRecyclerViewAdapter
 
 import com.example.smartgrocery.repositories.GroceryListItems
 import com.example.smartgrocery.repositories.LoginRepository.body
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.layout_list_item.view.*
 
 /**
  * A fragment representing a list of Items.
@@ -33,6 +37,7 @@ class ListsFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
+
     }
 
     override fun onCreateView(
@@ -55,8 +60,11 @@ class ListsFragment : Fragment() {
                     )
             }
         }
+
+
         return view
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -84,14 +92,14 @@ class ListsFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-
         fun onListFragmentInteraction(item: GroceryListItems.GroceryListDataItem?)
+
     }
 
     companion object {
 
         // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
-
     }
+
 }

@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.smartgrocery.repositories.GroceryListItems
 import com.example.smartgrocery.repositories.SignUpRepository
 import com.example.smartgrocery.repositories.SignUpRepository.body
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -56,7 +57,6 @@ class SignUpActivity : AppCompatActivity() {
         val password = signupPasswordText!!.text.toString()
         val email = signupEmailText!!.text.toString()
 
-        val corretlySingedUp = validate()
 
         // TODO: SignUp logic (send information to server)
         SignUpRepository.sendUserData(userName, password, email)
@@ -73,6 +73,11 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }, 3000
         )
+
+        val grocery = GroceryListItems.GroceryListDataItem(
+                1, "NeueListe")
+            GroceryListItems.ITEMS.add(grocery)
+
 
     }
 

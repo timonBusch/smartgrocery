@@ -3,7 +3,6 @@ package com.example.smartgrocery
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -13,9 +12,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.smartgrocery.grocery_lists.ListsFragment
 import com.example.smartgrocery.grocery_lists.ProductItemsFragment
 import com.example.smartgrocery.repositories.GroceryListItems
-import com.example.smartgrocery.repositories.LoginRepository
+import com.example.smartgrocery.repositories.LoginRepository.body
 import com.example.smartgrocery.repositories.ProductRepository
 import com.google.android.material.navigation.NavigationView
+import okhttp3.*
+import java.io.IOException
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -50,7 +51,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             navigationView.setCheckedItem(R.id.nav_lists)
         }
+
     }
+
 
 
     // Is triggered when the user presses the back key
@@ -100,7 +103,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onListFragmentInteraction(item: GroceryListItems.GroceryListDataItem?) {
-        ProductRepository.fetchProductListData(LoginRepository.body, item!!.id_einkaufsliste)
+        ProductRepository.ITEMS.clear()
+        ProductRepository.fetchProductListData(body, item!!.id_einkaufsliste)
+
+        if (item == GroceryListItems.ITEMS[GroceryListItems.ITEMS.size - 1]) {
+            val grocery = GroceryListItems.GroceryListDataItem(
+                item.id_einkaufsliste+1, "NeueListe")
+            GroceryListItems.ITEMS.add(grocery)
+            insertToDatabase(grocery)
+        }
 
         android.os.Handler().postDelayed(
             {
@@ -113,10 +124,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun onProductListFragmentInteraction(item: ProductRepository.ProductDataItem?) {
-        Toast.makeText(baseContext, "Toast", Toast.LENGTH_LONG).show()
+    /**
+     * Insert a GroceryListDataItem into a database
+     */
+    fun insertToDatabase(item: GroceryListItems.GroceryListDataItem) {
+        val url = "http://192.168.178.20:8080/smart-grocery-0.0.1-SNAPSHOT/einkaufslisten/$body/add/${item.name_einkaufsliste} ${item.id_einkaufsliste}"
+
+        val request = Request.Builder().url(url).build()
+
+        val  client = OkHttpClient()
+
+        // Make request on REST API
+        client.newCall(request).enqueue(object: Callback {
+            override fun onResponse(call: Call, response: Response) {
+                val serverResponse = response.body()?.string()
+
+                if (serverResponse.equals("saved")){
+                    println("List was saved in Database")
+                }
+
+            }
+
+            override fun onFailure(call: Call, e: IOException) {
+                println("Failed to execute request")
+            }
+        })
     }
 
 
+
+    override fun onProductListFragmentInteraction(item: ProductRepository.ProductDataItem?) {
+        Toast.makeText(baseContext, "Toast", Toast.LENGTH_LONG).show()
+    }
 
 }
